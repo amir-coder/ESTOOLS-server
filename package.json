@@ -1,0 +1,26 @@
+{
+  "name": "estools-server-api",
+  "version": "1.0.0",
+  "description": "server for ESTOOLS mobile application created on 25/10/2022",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amir-coder/ESTOOLS-server.git"
+  },
+  "keywords": [
+    "auth",
+    "CPRJ",
+    "users",
+    "ESTOOLS"
+  ],
+  "author": "Pengins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amir-coder/ESTOOLS-server/issues"
+  },
+  "homepage": "https://github.com/amir-coder/ESTOOLS-server#readme"
+}
