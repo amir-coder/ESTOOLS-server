@@ -7,3 +7,5 @@ const Config = mongoose.model(
     //TODO: create config realtions after creating the models
   })
 );
+
+module.exports = Config;
