@@ -25,3 +25,57 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+const db = require("./app/models");
+const Role = db.role;
+
+db.mongoose.connect(
+  `mongoose://${dbConfig.HOST}:${dbConfig.PORT}:${dbConfig.db}`,
+  {useUnifiedTopology: true}
+).then(()=>{
+  console.log('Connection extablished with db')
+  initiale()}
+).catch(error => {
+  console.log('ERROR: cannot connect to db: ', error);
+  process.exit()
+});
+
+
+const initiale = ()=>{
+  Role.estimatedDocumentCount((error, count)=>{
+    if(!error && count===0){
+      // inserting roles
+      new Role({
+        name: 'student',
+      }).save(error=>{
+        if(error){
+          console.log('error', error);
+        }
+
+        console.log('added student role.');
+      });
+
+      
+      new Role({
+        name: 'moderator',
+      }).save(error=>{
+        if(error){
+          console.log('error', error);
+        }
+
+        console.log('added moderator role.');
+      });
+
+      
+      new Role({
+        name: 'admin',
+      }).save(error=>{
+        if(error){
+          console.log('error', error);
+        }
+
+        console.log('added admin role.');
+      });
+    }
+  })
+}
