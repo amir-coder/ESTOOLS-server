@@ -22,8 +22,35 @@ exports.signup = (req, res) => {
 
     if (req.body.roles) {
       //add roles ids
+      Role.find({ name: { $in: req.body.roles } }, (err, roles) => {
+        if (err) {
+          res.status(500).send({ message: `error: ${err}` });
+        }
+
+        user.roles = roles.map((role) => role._id);
+        user.save((err) => {
+          if (err) {
+            res.status(500).send({ message: err });
+          }
+
+          res.status(200).send({ message: "User Registered successfully!" });
+        });
+      });
     } else {
       //add default role student
+      Role.findOne({ name: "student" }, (err, role) => {
+        if (err) {
+          res.status(500).send({ message: `error: ${err}` });
+        }
+
+        user.roles = [role._id];
+        user.save((err) => {
+          if (err) {
+            res.status(500).send({ message: err });
+          }
+          res.status(200).send({ message: "User Registered successfully!" });
+        });
+      });
     }
   });
 };
