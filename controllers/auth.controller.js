@@ -55,4 +55,48 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.signin = (req, res) => {};
+exports.signin = (req, res) => {
+  User.findById(req.userId)
+    .populate("roles", "-__v")
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).send({ message: `error: ${err}` });
+      }
+
+      if (!user) {
+        res.status(404).send({ message: "User not Found!" });
+      }
+
+      var passwordIsValid = bcrypt.compareSync(
+        req.headers.password,
+        user.password
+      );
+
+      if (!passwordIsValid) {
+        res
+          .status(401)
+          .send({ accessToken: null, message: "Invalide Password!" });
+      }
+
+      var token = jwt.sign({ is: user._id }, config.secret, {
+        expiresIn: 86400, //24 hours
+      });
+
+      var authorities = [];
+
+      for (let i = 0; i < user.roles.length; i++) {
+        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
+      }
+
+      res.status(200).send({
+        message: "success!",
+        accessToken: token,
+        user: {
+          email: user.email,
+          username: username,
+          id: user._id,
+          roles: authorities,
+        },
+      });
+    });
+};
