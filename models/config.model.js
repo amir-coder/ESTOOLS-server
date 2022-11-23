@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Config = mongoose.model(
+const Config = mongoose.Model(
   "Config",
   new mongoose.Schema({
     titre: String,

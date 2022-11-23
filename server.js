@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-
+const userRoute = require("./routes/user.routes");
+const authRoute = require("./routes/auth.routes");
 const app = express();
 
 var corsOptions = {
@@ -14,6 +15,9 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/user", userRoute);
+app.use("/auth", authRoute);
 
 // simple route
 app.get("/", (req, res) => {
@@ -29,53 +33,52 @@ app.listen(PORT, () => {
 const db = require("./app/models");
 const Role = db.role;
 
-db.mongoose.connect(
-  `mongoose://${dbConfig.HOST}:${dbConfig.PORT}:${dbConfig.db}`,
-  {useUnifiedTopology: true}
-).then(()=>{
-  console.log('Connection extablished with db')
-  initiale()}
-).catch(error => {
-  console.log('ERROR: cannot connect to db: ', error);
-  process.exit()
-});
+db.mongoose
+  .connect(`mongoose://${dbConfig.HOST}:${dbConfig.PORT}:${dbConfig.db}`, {
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connection extablished with db");
+    initiale();
+  })
+  .catch((error) => {
+    console.log("ERROR: cannot connect to db: ", error);
+    process.exit();
+  });
 
-
-const initiale = ()=>{
-  Role.estimatedDocumentCount((error, count)=>{
-    if(!error && count===0){
+const initiale = () => {
+  Role.estimatedDocumentCount((error, count) => {
+    if (!error && count === 0) {
       // inserting roles
       new Role({
-        name: 'student',
-      }).save(error=>{
-        if(error){
-          console.log('error', error);
+        name: "student",
+      }).save((error) => {
+        if (error) {
+          console.log("error", error);
         }
 
-        console.log('added student role.');
+        console.log("added student role.");
       });
 
-      
       new Role({
-        name: 'moderator',
-      }).save(error=>{
-        if(error){
-          console.log('error', error);
+        name: "moderator",
+      }).save((error) => {
+        if (error) {
+          console.log("error", error);
         }
 
-        console.log('added moderator role.');
+        console.log("added moderator role.");
       });
 
-      
       new Role({
-        name: 'admin',
-      }).save(error=>{
-        if(error){
-          console.log('error', error);
+        name: "admin",
+      }).save((error) => {
+        if (error) {
+          console.log("error", error);
         }
 
-        console.log('added admin role.');
+        console.log("added admin role.");
       });
     }
-  })
-}
+  });
+};

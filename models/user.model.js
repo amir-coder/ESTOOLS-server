@@ -1,15 +1,21 @@
 const mongoose = require("mongoose");
 
-const Student = mongoose.model(
+const student = mongoose.model(
   "Student",
   new mongoose.Schema({
     config: [
       {
-        type: mongoose.model.Schema.types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Config",
+      },
+    ],
+    roles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Role",
       },
     ],
   })
 );
 
-model.exports = Student;
+module.exports = student;
