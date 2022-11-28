@@ -5,7 +5,10 @@ const authRoute = require("./routes/auth.routes");
 const app = express();
 const db = require("./models");
 const Role = db.role;
+
+//config
 const dbConfig = require("./config/db.config");
+const apiConfig = require("./config/api.config");
 
 var corsOptions = {
   origin: "http://localhost:8081",
@@ -28,9 +31,10 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8085;
+const APP_PORT = apiConfig.PORT || 8085;
+const APP_HOST = apiConfig.HOST || "localhost";
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on ${APP_HOST}:${APP_PORT}.`);
 });
 
 db.mongoose
