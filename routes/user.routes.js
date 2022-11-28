@@ -6,15 +6,15 @@ const router = new express.Router();
 
 //TODO: implement router endpoints
 
-router.get("all/", controller.allAccess);
-router.get("user/", [authJwt.verifyToken], controller.userBoard);
+router.get("/all", controller.allAccess);
+router.get("/user", [authJwt.verifyToken], controller.userBoard);
 router.get(
-  "moderator/",
+  "/moderator",
   [authJwt.verifyToken, authJwt.isModerator],
   controller.moderatorBoard
 );
 router.get(
-  "admin/",
+  "/admin",
   [authJwt.verifyToken, authJwt.isAdmin],
   controller.adminBoard
 );

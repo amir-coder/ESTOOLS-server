@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
-const student = mongoose.model(
-  "Student",
+const user = mongoose.model(
+  "users",
   new mongoose.Schema({
+    firstname: String,
+    lastname: String,
+    email: String,
+    password: String,
     config: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -12,10 +16,10 @@ const student = mongoose.model(
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Role",
+        ref: "roles",
       },
     ],
   })
 );
 
-module.exports = student;
+module.exports = user;

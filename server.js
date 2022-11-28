@@ -5,6 +5,7 @@ const authRoute = require("./routes/auth.routes");
 const app = express();
 const db = require("./models");
 const Role = db.role;
+const dbConfig = require("./config/db.config");
 
 var corsOptions = {
   origin: "http://localhost:8081",
@@ -27,13 +28,13 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8085;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
 db.mongoose
-  .connect(`mongoose://${dbConfig.HOST}:${dbConfig.PORT}:${dbConfig.db}`, {
+  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useUnifiedTopology: true,
   })
   .then(() => {

@@ -5,10 +5,10 @@ const express = require("express");
 const route = new express.Router();
 
 route.post(
-  "signup/",
+  "/signup",
   [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
   controller.signup
 );
-route.post("signin/", controller.signin);
+route.post("/signin", controller.signin);
 
 module.exports = route;

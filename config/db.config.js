@@ -1,5 +1,5 @@
 module.exports = {
-  host: "localhost",
-  port: 27017,
-  db: "estools_db",
+  HOST: "localhost",
+  PORT: 27017,
+  DB: "estools_db",
 };
