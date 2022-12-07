@@ -7,6 +7,11 @@ const user = mongoose.model(
     lastname: String,
     email: String,
     password: String,
+    isValid: {
+      type: Boolean,
+      default: false,
+    },
+    emailVarificationString: String,
     config: [
       {
         type: mongoose.Schema.Types.ObjectId,

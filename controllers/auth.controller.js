@@ -117,3 +117,14 @@ exports.signin = async (req, res) => {
     console.log(err);
   }
 };
+
+exports.verifyEmail = async (req, res) => {
+  const { email, secretString } = req.params;
+
+  const user = User.findOne({ email: email });
+  if (user) {
+    //need to verify the secretString
+  } else {
+    res.status(400).send({ message: "User not Found!" });
+  }
+};
