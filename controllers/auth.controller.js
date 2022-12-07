@@ -1,6 +1,6 @@
 const config = require("../config/auth.config");
 const db = require("../models");
-
+const { send_email } = require("mail.controller");
 const User = db.user;
 const Role = db.role;
 
@@ -34,10 +34,19 @@ exports.signup = async (req, res) => {
               if (err) {
                 res.status(500).send({ message: err });
               }
-
               res
                 .status(200)
                 .send({ message: "User Registered successfully!" });
+
+              //send verification email with secret string
+              var secret = jwt.sign(
+                { is: user._id },
+                config.verification_secret,
+                {
+                  expiresIn: 86400, //24 hours
+                }
+              );
+              send_email(user.email, secret);
             });
           });
         } else {
@@ -122,9 +131,25 @@ exports.verifyEmail = async (req, res) => {
   const { email, secretString } = req.params;
 
   const user = User.findOne({ email: email });
-  if (user) {
-    //need to verify the secretString
-  } else {
-    res.status(400).send({ message: "User not Found!" });
+  try {
+    if (user) {
+      //need to verify the secretString
+      var secretIsValid = bcrypt.compareSync(
+        secretString,
+        user.emailVarificationString
+      );
+
+      if (secretIsValid) {
+        user.isValid = true;
+        await user.save();
+        res.status(200).send({ message: "Verified Successfully!" });
+      } else {
+      }
+    } else {
+      res.status(400).send({ message: "User not Found!" });
+    }
+  } catch (error) {
+    console.log(err);
+    res.status(500).send({ message: err });
   }
 };
