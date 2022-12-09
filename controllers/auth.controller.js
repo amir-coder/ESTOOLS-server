@@ -1,6 +1,6 @@
 const config = require("../config/auth.config");
 const db = require("../models");
-const { send_email } = require("mail.controller");
+const mailController = require("./mail.controller");
 const User = db.user;
 const Role = db.role;
 
@@ -46,7 +46,7 @@ exports.signup = async (req, res) => {
                   expiresIn: 86400, //24 hours
                 }
               );
-              send_email(user.email, secret);
+              mailController.send_email(user.email, secret);
             });
           });
         } else {
@@ -98,7 +98,7 @@ exports.signin = async (req, res) => {
               .send({ accessToken: null, message: "Invalide Password!" });
           }
 
-          var token = jwt.sign({ is: user._id }, config.secret, {
+          var token = jwt.sign({ is: user._id }, config.auth_secret, {
             expiresIn: 86400, //24 hours
           });
 
@@ -133,20 +133,23 @@ exports.verifyEmail = async (req, res) => {
   const user = User.findOne({ email: email });
   try {
     if (user) {
-      //need to verify the secretString
-      var secretIsValid = bcrypt.compareSync(
+      jwt.verify(
         secretString,
-        user.emailVarificationString
+        config.verification_secret,
+        async (error, decoded) => {
+          if (error) {
+            res.status(401).send({ message: `Unvalid!` });
+          }
+          user.isValid = true;
+          await user.save();
+          res.status(200).send({
+            message:
+              "Verified Successfully! Go to ESTOOLS mobile app and sign in again.",
+          });
+        }
       );
-
-      if (secretIsValid) {
-        user.isValid = true;
-        await user.save();
-        res.status(200).send({ message: "Verified Successfully!" });
-      } else {
-      }
     } else {
-      res.status(400).send({ message: "User not Found!" });
+      res.status(404).send({ message: "User not Found!" });
     }
   } catch (error) {
     console.log(err);

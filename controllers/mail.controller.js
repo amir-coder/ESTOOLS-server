@@ -2,19 +2,26 @@ const nodemailer = require("nodemailer");
 const mailConfig = require("../config/email.config");
 const apiConfig = require("../config/api.config");
 
-const send_email = async (email, secretString) => {
+module.exports.send_email = async (email, secretString) => {
   var Transport = nodemailer.createTransport({
     service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
+      type: "OAuth2",
       user: mailConfig.email,
-      pass: mailConfig.password,
+      clientId: mailConfig.client_id,
+      clientSecret: mailConfig.client_secret,
+      refreshToken: mailConfig.refresh_token,
     },
   });
 
   let mailOptions = {
     from: mailConfig.email,
     to: email,
-    html: `Press <a href="${apiConfig.HOST}:${apiConfig.PORT}/verify/${apiConfig.secretString}" > Here <a/> To verify your email. Thanks.`,
+    subject: "Estools email confirmation",
+    html: `Press <a href="${apiConfig.HOST}:${apiConfig.PORT}/auth/verify/${email}/${secretString}" > Here <a/> To verify your email. Thanks.`,
   };
 
   Transport.sendMail(mailOptions, (err, response) => {

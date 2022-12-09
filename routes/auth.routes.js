@@ -10,6 +10,6 @@ route.post(
   controller.signup
 );
 route.post("/signin", controller.signin);
-route.get("/verify/:email/:secretString", controller.signin);
+route.get("/verify/:email/:secretString", controller.verifyEmail);
 
 module.exports = route;

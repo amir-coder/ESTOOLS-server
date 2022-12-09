@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 // set port, listen for requests
 const APP_PORT = apiConfig.PORT || 8085;
 const APP_HOST = apiConfig.HOST || "localhost";
-app.listen(PORT, () => {
+app.listen(APP_PORT, () => {
   console.log(`Server is running on ${APP_HOST}:${APP_PORT}.`);
 });
 

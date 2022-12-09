@@ -11,7 +11,6 @@ const user = mongoose.model(
       type: Boolean,
       default: false,
     },
-    emailVarificationString: String,
     config: [
       {
         type: mongoose.Schema.Types.ObjectId,
