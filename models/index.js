@@ -13,7 +13,8 @@ db.resources = require("./resources.model");
 db.tasks = require("./tasks.model");
 db.config = require("./config.model");
 db.categories_tasks = require("./categories_tasks.model");
-
+db.categories_notes = require("./categories_notes.model");
+db.notes = require("./notes.model");
 db.ROLES = ["student", "moderator", "admin"];
 
 module.exports = db;
