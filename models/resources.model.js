@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Resources = mongoose.model(
   "Resources",
-  new mongoose.Schema({
+  new mongoose.Schema({ 
     title: String,
     url: String,
     color: String,
