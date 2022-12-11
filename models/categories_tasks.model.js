@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const Categories = mongoose.model(
-  "Categories",
+const Categories_tasks = mongoose.model(
+  "Categories_tasks",
   new mongoose.Schema({
     title: String,
     progress: Number,
@@ -13,4 +13,4 @@ const Categories = mongoose.model(
   })
 );
 
-module.exports = Categories;
+module.exports = Categories_tasks;
