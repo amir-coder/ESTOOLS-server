@@ -8,6 +8,7 @@ const Reminders = mongoose.model(
     duration: int,
     duration_recorded: int,
     date_ajout: date,
+    pregress: Number,
     Config: [
         {
           type: mongoose.Schema.Types.ObjectId,
@@ -15,7 +16,10 @@ const Reminders = mongoose.model(
         }
     ],
     Category: [
-      
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Categories"
+      }
     ]
   })
 );
