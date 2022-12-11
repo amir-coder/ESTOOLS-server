@@ -14,18 +14,17 @@ const Reminders = mongoose.model(
     alarm: Boolean,
     notification: Boolean,
     progress: Number,
-    Config: [
+    Config: 
         {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Config"
         }
-    ],
-    Category: [
+    ,
+    Category: 
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Categories"
+        ref: "Categories_tasks"
       }
-    ]
   })
 );
 
