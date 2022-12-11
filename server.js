@@ -42,7 +42,7 @@ db.mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connection extablished with db");
+    console.log("Connection established with db");
     initiale();
   })
   .catch((error) => {

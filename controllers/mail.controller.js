@@ -1,23 +1,24 @@
 const nodemailer = require("nodemailer");
 
-const google = require("googleapis");
+const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const mailConfig = require("../config/email.config");
 const apiConfig = require("../config/api.config");
 
 const createTransporter = async () => {
-  const oauth2CLient = new OAuth2(
+  const oauth2Client = new OAuth2(
     mailConfig.client_id,
     mailConfig.client_secret,
-    "https://developers.google.com/oauthplayground"
+    // "https://developers.google.com/oauthplayground"
+    "https://oauth2.googleapis.com/token"
   );
 
-  oauth2CLient.setCredentials({
+  oauth2Client.setCredentials({
     refreshToken: mailConfig.refresh_token,
   });
 
   const accessToken = await new Promise((resolve, reject) => {
-    oauth2CLient.createAccessToken((err, token) => {
+    oauth2Client.getAccessToken((err, token) => {
       if (err) {
         reject("Can't create access token :<!");
       }
@@ -50,12 +51,17 @@ const sendMail = async (emailOptions) => {
 };
 
 module.exports.send_email = async (email, secretString) => {
-  let mailOptions = {
-    from: mailConfig.email,
-    to: email,
-    subject: "Estools email confirmation",
-    html: `Press <a href="${apiConfig.HOST}:${apiConfig.PORT}/auth/verify/${email}/${secretString}" > Here <a/> To verify your email. Thanks.`,
-  };
+  try {
+    let mailOptions = {
+      from: mailConfig.email,
+      to: email,
+      subject: "Estools email confirmation",
+      html: `Press <a href="${apiConfig.HOST}:${apiConfig.PORT}/auth/verify/${email}/${secretString}" > Here <a/> To verify your email. Thanks.`,
+    };
 
-  sendMail(mailOptions);
+    sendMail(mailOptions);
+  } catch (err) {
+    console.log("Error:", err);
+    res.satatus(500).send({ error: err });
+  }
 };

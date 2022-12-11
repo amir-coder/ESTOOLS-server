@@ -31,22 +31,22 @@ exports.signup = async (req, res) => {
 
             user.roles = roles.map((role) => role._id);
             user.save((err) => {
-              if (err) {
+              try {
+                //send verification email with secret string
+                var secret = jwt.sign(
+                  { is: user._id },
+                  config.verification_secret,
+                  {
+                    expiresIn: 86400, //24 hours
+                  }
+                );
+                mailController.send_email(user.email, secret);
+                res
+                  .status(200)
+                  .send({ message: "User Registered successfully!" });
+              } catch (err) {
                 res.status(500).send({ message: err });
               }
-              res
-                .status(200)
-                .send({ message: "User Registered successfully!" });
-
-              //send verification email with secret string
-              var secret = jwt.sign(
-                { is: user._id },
-                config.verification_secret,
-                {
-                  expiresIn: 86400, //24 hours
-                }
-              );
-              mailController.send_email(user.email, secret);
             });
           });
         } else {
