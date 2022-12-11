@@ -13,7 +13,7 @@ const notes = mongoose.model(
     Config: 
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Categories_notes"
+        ref: "Config"
       }
   })
 );
