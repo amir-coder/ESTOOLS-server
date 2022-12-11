@@ -4,7 +4,7 @@ const Categories = mongoose.model(
   "Categories",
   new mongoose.Schema({
     title: String,
-    progression: Float,
+    progression: Number,
     Config: [
       {
         type: mongoose.Schema.Types.ObjectId,
