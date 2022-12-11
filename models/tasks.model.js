@@ -8,7 +8,7 @@ const Reminders = mongoose.model(
     duration: int,
     duration_recorded: int,
     date_ajout: date,
-    pregress: Number,
+    progress: Number,
     Config: [
         {
           type: mongoose.Schema.Types.ObjectId,
