@@ -5,7 +5,7 @@ const Folder = mongoose.model(
   new mongoose.Schema({
     title: String,
     color: String,
-    priority: int,
+    priority: Number,
     parent: [
       {
         type: mongoose.Schema.Types.ObjectId,
