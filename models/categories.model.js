@@ -5,12 +5,11 @@ const Categories = mongoose.model(
   new mongoose.Schema({
     title: String,
     progress: Number,
-    Config: [
+    Config: 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Config"
       }
-    ]
 
   })
 );
