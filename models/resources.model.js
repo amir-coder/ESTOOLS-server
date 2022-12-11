@@ -6,18 +6,16 @@ const Resources = mongoose.model(
     title: String,
     url: String,
     color: String,
-    parent: [
+    folder:
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Folder"
-      }
-    ], 
-    Config: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Config"
-        }
-    ]
+      }, 
+    Config: 
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Config"
+      } 
   })
 );
 
