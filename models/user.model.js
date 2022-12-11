@@ -7,18 +7,16 @@ const user = mongoose.model(
     lastname: String,
     email: String,
     password: String,
-    config: [
+    config: 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Config",
       },
-    ],
-    roles: [
+    roles: 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "roles",
       },
-    ],
   })
 );
 
