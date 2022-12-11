@@ -5,6 +5,7 @@ const notes = mongoose.model(
   new mongoose.Schema({
     title: String,
     description: String,
+    date_add: Date,
     Category: 
       {
         type: mongoose.Schema.Types.ObjectId,
