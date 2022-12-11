@@ -7,7 +7,7 @@ const Reminders = mongoose.model(
     done: Boolean,
     duration: Number,
     duration_recorded: Number,
-    date_ajout: Date,
+    date_add: Date,
     repeat : Number,
     daily: Boolean,
     weekly: Boolean,
