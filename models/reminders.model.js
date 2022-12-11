@@ -5,11 +5,11 @@ const Reminders = mongoose.model(
   new mongoose.Schema({
     dates: date,
     time: String,
-    repeat : int,
-    daily: boolean,
-    weekly: boolean,
-    alarm: boolean,
-    notification: boolean,
+    repeat : Number,
+    daily: Boolean,
+    weekly: Boolean,
+    alarm: Boolean,
+    notification: Boolean,
     Config: [
         {
           type: mongoose.Schema.Types.ObjectId,
