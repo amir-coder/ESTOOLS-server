@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Reminders = mongoose.model(
   "Reminders",
   new mongoose.Schema({
-    dates: [Date],
+    dates: [{type: Date}],
     time: String,
     repeat : Number,
     daily: Boolean,
