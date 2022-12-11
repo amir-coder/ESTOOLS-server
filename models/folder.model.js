@@ -6,18 +6,16 @@ const Folder = mongoose.model(
     title: String,
     color: String,
     priority: Number,
-    parent: [
+    parent: 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Folder"
+      }, 
+    Config: 
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Config"
       }
-    ], 
-    Config: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Config"
-        }
-    ]
   })
 );
 
