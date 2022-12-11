@@ -4,12 +4,12 @@ const Config = mongoose.model(
   "Config",
   new mongoose.Schema({
     title: String,
-    User: [
+    User: 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
       }
-    ]
+    
 
   })
 );
