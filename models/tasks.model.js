@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Reminders = mongoose.model(
-  "Tasks",
+  "tasks",
   new mongoose.Schema({
     content: String,
     done: boolean,
@@ -16,9 +16,9 @@ const Reminders = mongoose.model(
     progress: Number,
     category: String,
 
-    Config: {
+    config: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Config",
+      ref: "configs",
     },
   })
 );

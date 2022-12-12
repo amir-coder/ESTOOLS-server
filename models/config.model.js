@@ -1,16 +1,13 @@
 const mongoose = require("mongoose");
 
 const Config = mongoose.model(
-  "Config",
+  "configs",
   new mongoose.Schema({
     title: String,
-    User: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
-      }
-    
-
+    User: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
   })
 );
 

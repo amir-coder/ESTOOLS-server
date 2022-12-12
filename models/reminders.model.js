@@ -1,20 +1,19 @@
 const mongoose = require("mongoose");
 
 const Reminders = mongoose.model(
-  "Reminders",
+  "reminders",
   new mongoose.Schema({
-    dates: [{type: Date}],
+    dates: [{ type: Date }],
     time: String,
-    repeat : Number,
+    repeat: Number,
     daily: Boolean,
     weekly: Boolean,
     alarm: Boolean,
     notification: Boolean,
-    Config: 
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Config"
-        }
+    config: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "configs",
+    },
   })
 );
 

@@ -7,9 +7,9 @@ const notes = mongoose.model(
     description: String,
     date_add: Date,
     category: String,
-    Config: {
+    config: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Config",
+      ref: "configs",
     },
   })
 );
