@@ -40,7 +40,7 @@ exports.signup = async (req, res) => {
                     expiresIn: 86400, //24 hours
                   }
                 );
-                mailController.send_email(user.email, secret);
+                // mailController.send_email(user.email, secret);
                 res
                   .status(200)
                   .send({ message: "User Registered successfully!" });
