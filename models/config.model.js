@@ -8,6 +8,57 @@ const Config = mongoose.model(
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
     },
+    notes: [
+      {
+        title: String,
+        description: String,
+        date_add: Date,
+        category: String,
+      },
+    ],
+    reminders: [
+      {
+        dates: [{ type: Date }],
+        time: String,
+        repeat: Number,
+        daily: Boolean,
+        weekly: Boolean,
+        alarm: Boolean,
+        notification: Boolean,
+      },
+    ],
+    tasks: [
+      {
+        content: String,
+        done: Boolean,
+        duration: Number,
+        duration_recorded: Number,
+        date_ajout: Date,
+        repeat: Number,
+        daily: Boolean,
+        weekly: Boolean,
+        alarm: Boolean,
+        notification: Boolean,
+        progress: Number,
+        category: String,
+      },
+    ],
+    resources: [
+      {
+        // categories
+        categorie: String,
+        color: String,
+        priority: Number,
+        content: [
+          //list of resources in categorie
+          {
+            title: String,
+            url: String,
+            color: String,
+          },
+        ],
+      },
+    ],
   })
 );
 
