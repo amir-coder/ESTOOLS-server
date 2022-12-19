@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Reminders = mongoose.model(
+const Tasks = mongoose.model(
   "tasks",
   new mongoose.Schema({
     content: String,

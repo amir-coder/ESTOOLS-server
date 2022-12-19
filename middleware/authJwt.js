@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/db.config");
+const config = require("../config/auth.config");
 const { ROLES } = require("../models");
 
 const db = require("../models");
@@ -27,6 +27,7 @@ isAdmin = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: `ERROR ${err}` });
+      return;
     }
 
     Role.find({ _id: { $in: user.roles } }, (err, roles) => {
