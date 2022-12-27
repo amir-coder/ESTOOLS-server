@@ -7,7 +7,9 @@ const router = new express.Router();
 //TODO: implement router endpoints
 
 router.get("/all", controller.allAccess);
-router.get("/user", [authJwt.verifyToken], controller.userBoard);
+router.get("/", [authJwt.verifyToken], controller.userBoard);
+router.get("/config", [authJwt.verifyToken], controller.getConfig);
+
 router.get(
   "/moderator",
   [authJwt.verifyToken, authJwt.isModerator],
