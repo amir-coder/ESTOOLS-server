@@ -8,7 +8,7 @@ const Config = mongoose.model(
       {
         title: String,
         description: String,
-        date_add: Date,
+        add_date: Date,
         category: String,
       },
     ],

@@ -1,4 +1,5 @@
 const controller = require("../controllers/user.controller");
+const config_controller = require("../controllers/config.controller");
 const { authJwt } = require("../middleware");
 const express = require("express");
 
@@ -10,6 +11,13 @@ router.get("/all", controller.allAccess);
 router.get("/", [authJwt.verifyToken], controller.userBoard);
 router.get("/config", [authJwt.verifyToken], controller.getConfig);
 router.post("/config", [authJwt.verifyToken], controller.postConfig);
+router.post("/config/params", [authJwt.verifyToken], config_controller.post);
+router.put("/config/params", [authJwt.verifyToken], config_controller.put);
+router.delete(
+  "/config/params",
+  [authJwt.verifyToken],
+  config_controller.delete
+);
 
 router.get(
   "/moderator",
