@@ -27,9 +27,9 @@ module.exports.getConfig = async (req, res) => {
         return;
       }
       if (user) {
-        console.log(user.config[0]);
-        if (user.config[0]) {
-          Configuration.findOne({ _id: user.config[0], ...req.body }).exec(
+        console.log(user.configs[0]);
+        if (user.configs[0]) {
+          Configuration.findOne({ _id: user.configs[0], ...req.body }).exec(
             (err, config) => {
               if (err) {
                 console.log(err);
@@ -54,8 +54,37 @@ module.exports.getConfig = async (req, res) => {
 
 module.exports.postConfig = async (req, res) => {
   try {
+    User.findById(req.userId).exec((err, user) => {
+      if (err) {
+        console.log("ERR", err);
+        req.status(500).send({ message: err.message });
+        return;
+      }
+      if (user) {
+        // //check if title is unique
+        // if (user.configs.some((configId)=> {
+        //   Configuration.
+        //   config.title === req.body.title
+        // })){
+        //   //config existes
+
+        // };
+        Configuration.create(req.body, (err, configuration) => {
+          if (err) {
+            console.log("ERR", err);
+            req.status(500).send({ message: err.message });
+            return;
+          }
+          if (configuration) {
+            user.configs.push(configuration._id);
+            user.save();
+            res.status(200).send({ messsage: "Success!", body: user });
+          }
+        });
+      }
+    });
   } catch (err) {
-    console.log(message);
+    console.log(err);
     res.status(500).send({ messsage: err.message });
   }
 };
@@ -63,6 +92,7 @@ module.exports.postConfig = async (req, res) => {
 module.exports.putConfig = async (req, res) => {
   try {
   } catch (err) {
+    console.log(err);
     res.status(500).send({ message: err });
   }
 };
@@ -70,6 +100,7 @@ module.exports.putConfig = async (req, res) => {
 module.exports.deleteConfig = async (req, res) => {
   try {
   } catch (err) {
+    console.log(err);
     res.status(500).send({ message: err });
   }
 };

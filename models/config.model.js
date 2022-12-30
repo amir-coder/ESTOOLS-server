@@ -3,11 +3,7 @@ const mongoose = require("mongoose");
 const Config = mongoose.model(
   "configs",
   new mongoose.Schema({
-    title: String,
-    User: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
-    },
+    title: { type: String, default: "Config0" },
     notes: [
       {
         title: String,

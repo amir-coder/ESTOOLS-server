@@ -9,6 +9,7 @@ const router = new express.Router();
 router.get("/all", controller.allAccess);
 router.get("/", [authJwt.verifyToken], controller.userBoard);
 router.get("/config", [authJwt.verifyToken], controller.getConfig);
+router.post("/config", [authJwt.verifyToken], controller.postConfig);
 
 router.get(
   "/moderator",

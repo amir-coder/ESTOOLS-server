@@ -11,7 +11,7 @@ const user = mongoose.model(
       type: Boolean,
       default: false,
     },
-    config: [
+    configs: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Config",
