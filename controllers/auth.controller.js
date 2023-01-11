@@ -82,6 +82,8 @@ exports.signin = async (req, res) => {
       .exec((err, user) => {
         if (err) {
           res.status(500).send({ message: `error: ${err}` });
+          console.log(err);
+          return;
         }
 
         if (!user) {
@@ -96,6 +98,7 @@ exports.signin = async (req, res) => {
             res
               .status(401)
               .send({ accessToken: null, message: "Invalide Password!" });
+            return;
           }
 
           var token = jwt.sign({ is: user._id }, config.auth_secret, {

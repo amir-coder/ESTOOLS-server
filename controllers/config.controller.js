@@ -154,6 +154,7 @@ module.exports.put = async (req, res) => {
   }
 };
 
+//Array.splice(index, 1)
 module.exports.delete = async (req, res) => {
   try {
     User.findById(req.userId).exec((err, user) => {
