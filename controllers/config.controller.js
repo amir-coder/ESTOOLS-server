@@ -65,19 +65,26 @@ module.exports.put = async (req, res) => {
             //reminders
             if (req.body.reminders) {
               for (let i = 0; i < req.body.reminders.length; i++) {
-                for (
-                  let i_saved = 0;
-                  i_saved < configuration.reminders.length;
-                  i_saved++
-                ) {
-                  if (
-                    configuration.reminders[i_saved]._id.toString() ===
-                    req.body.reminders[i]._id
+                if (req.body.reminders[i]._id == "") {
+                  let reminder = req.body.reminders[i];
+                  delete reminder._id;
+                  configuration.reminders =
+                    configuration.reminders.concat(reminder);
+                } else {
+                  for (
+                    let i_saved = 0;
+                    i_saved < configuration.reminders.length;
+                    i_saved++
                   ) {
-                    configuration.reminders[i_saved] = Object.assign(
-                      configuration.reminders[i_saved],
-                      req.body.reminders[i]
-                    );
+                    if (
+                      configuration.reminders[i_saved]._id.toString() ===
+                      req.body.reminders[i]._id
+                    ) {
+                      configuration.reminders[i_saved] = Object.assign(
+                        configuration.reminders[i_saved],
+                        req.body.reminders[i]
+                      );
+                    }
                   }
                 }
               }
@@ -85,19 +92,25 @@ module.exports.put = async (req, res) => {
             //tasks
             if (req.body.tasks) {
               for (let i = 0; i < req.body.tasks.length; i++) {
-                for (
-                  let i_saved = 0;
-                  i_saved < configuration.tasks.length;
-                  i_saved++
-                ) {
-                  if (
-                    configuration.tasks[i_saved]._id.toString() ===
-                    req.body.tasks[i]._id
+                if (req.body.tasks[i]._id == "") {
+                  let task = req.body.tasks[i];
+                  delete task._id;
+                  configuration.tasks = configuration.tasks.concat(task);
+                } else {
+                  for (
+                    let i_saved = 0;
+                    i_saved < configuration.tasks.length;
+                    i_saved++
                   ) {
-                    configuration.tasks[i_saved] = Object.assign(
-                      configuration.tasks[i_saved],
-                      req.body.tasks[i]
-                    );
+                    if (
+                      configuration.tasks[i_saved]._id.toString() ===
+                      req.body.tasks[i]._id
+                    ) {
+                      configuration.tasks[i_saved] = Object.assign(
+                        configuration.tasks[i_saved],
+                        req.body.tasks[i]
+                      );
+                    }
                   }
                 }
               }
@@ -105,19 +118,25 @@ module.exports.put = async (req, res) => {
             //notes
             if (req.body.notes) {
               for (let i = 0; i < req.body.notes.length; i++) {
-                for (
-                  let i_saved = 0;
-                  i_saved < configuration.notes.length;
-                  i_saved++
-                ) {
-                  if (
-                    configuration.notes[i_saved]._id.toString() ===
-                    req.body.notes[i]._id
+                if (req.body.notes[i]._id == "") {
+                  let note = req.body.notes[i];
+                  delete note._id;
+                  configuration.notes = configuration.notes.concat(note);
+                } else {
+                  for (
+                    let i_saved = 0;
+                    i_saved < configuration.notes.length;
+                    i_saved++
                   ) {
-                    configuration.notes[i_saved] = Object.assign(
-                      configuration.notes[i_saved],
-                      req.body.notes[i]
-                    );
+                    if (
+                      configuration.notes[i_saved]._id.toString() ===
+                      req.body.notes[i]._id
+                    ) {
+                      configuration.notes[i_saved] = Object.assign(
+                        configuration.notes[i_saved],
+                        req.body.notes[i]
+                      );
+                    }
                   }
                 }
               }
@@ -125,19 +144,26 @@ module.exports.put = async (req, res) => {
             //resources
             if (req.body.resources) {
               for (let i = 0; i < req.body.resources.length; i++) {
-                for (
-                  let i_saved = 0;
-                  i_saved < configuration.resources.length;
-                  i_saved++
-                ) {
-                  if (
-                    configuration.resources[i_saved]._id.toString() ===
-                    req.body.resources[i]._id
+                if (req.body.resources[i]._id == "") {
+                  let resource = req.body.resources[i];
+                  delete resource._id;
+                  configuration.resources =
+                    configuration.resources.concat(resource);
+                } else {
+                  for (
+                    let i_saved = 0;
+                    i_saved < configuration.resources.length;
+                    i_saved++
                   ) {
-                    configuration.resources[i_saved] = Object.assign(
-                      configuration.resources[i_saved],
-                      req.body.resources[i]
-                    );
+                    if (
+                      configuration.resources[i_saved]._id.toString() ===
+                      req.body.resources[i]._id
+                    ) {
+                      configuration.resources[i_saved] = Object.assign(
+                        configuration.resources[i_saved],
+                        req.body.resources[i]
+                      );
+                    }
                   }
                 }
               }
