@@ -43,7 +43,15 @@ exports.signup = async (req, res) => {
                 // mailController.send_email(user.email, secret);
                 res
                   .status(200)
-                  .send({ message: "User Registered successfully!" });
+                  .send({ message: "User Registered successfully!", 
+                  user: {
+                    email: user.email,
+                    firstname: user["firstname"],
+                    lastname: user["lastname"],
+                    id: user._id,
+                    configs: user.configs,
+                    roles: authorities,
+                  } });
               } catch (err) {
                 res.status(500).send({ message: err });
               }
@@ -63,7 +71,15 @@ exports.signup = async (req, res) => {
               }
               res
                 .status(200)
-                .send({ message: "User Registered successfully!" });
+                .send({ message: "User Registered successfully!", 
+                user: {
+                  email: user.email,
+                  firstname: user["firstname"],
+                  lastname: user["lastname"],
+                  id: user._id,
+                  configs: user.configs,
+                  roles: authorities,
+                } });
             });
           });
         }
@@ -119,6 +135,7 @@ exports.signin = async (req, res) => {
               firstname: user["firstname"],
               lastname: user["lastname"],
               id: user._id,
+              configs: user.configs,
               roles: authorities,
             },
           });
