@@ -3,6 +3,7 @@ const db = require("../models");
 const mailController = require("./mail.controller");
 const User = db.user;
 const Role = db.role;
+const Configuration = db.config;
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -41,17 +42,27 @@ exports.signup = async (req, res) => {
                   }
                 );
                 // mailController.send_email(user.email, secret);
-                res
-                  .status(200)
-                  .send({ message: "User Registered successfully!", 
-                  user: {
-                    email: user.email,
-                    firstname: user["firstname"],
-                    lastname: user["lastname"],
-                    id: user._id,
-                    configs: user.configs,
-                    roles: authorities,
-                  } });
+                //add config
+                const configuration = Configuration();
+                configuration.save();
+                user.configs = [configuration._id];
+                user.save((err) => {
+                  try {
+                    res.status(200).send({
+                      message: "User Registered successfully!",
+                      user: {
+                        email: user.email,
+                        firstname: user["firstname"],
+                        lastname: user["lastname"],
+                        id: user._id,
+                        configs: user.configs,
+                        roles: authorities,
+                      },
+                    });
+                  } catch (err) {
+                    res.status(500).send({ message: err });
+                  }
+                });
               } catch (err) {
                 res.status(500).send({ message: err });
               }
@@ -69,9 +80,8 @@ exports.signup = async (req, res) => {
               if (err) {
                 res.status(500).send({ message: err });
               }
-              res
-                .status(200)
-                .send({ message: "User Registered successfully!", 
+              res.status(200).send({
+                message: "User Registered successfully!",
                 user: {
                   email: user.email,
                   firstname: user["firstname"],
@@ -79,7 +89,8 @@ exports.signup = async (req, res) => {
                   id: user._id,
                   configs: user.configs,
                   roles: authorities,
-                } });
+                },
+              });
             });
           });
         }
