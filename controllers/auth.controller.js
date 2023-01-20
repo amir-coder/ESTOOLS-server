@@ -31,42 +31,6 @@ exports.signup = async (req, res) => {
             }
 
             user.roles = roles.map((role) => role._id);
-            user.save((err) => {
-              try {
-                //send verification email with secret string
-                var secret = jwt.sign(
-                  { is: user._id },
-                  config.verification_secret,
-                  {
-                    expiresIn: 86400, //24 hours
-                  }
-                );
-                // mailController.send_email(user.email, secret);
-                //add config
-                const configuration = Configuration();
-                configuration.save();
-                user.configs = [configuration._id];
-                user.save((err) => {
-                  try {
-                    res.status(200).send({
-                      message: "User Registered successfully!",
-                      user: {
-                        email: user.email,
-                        firstname: user["firstname"],
-                        lastname: user["lastname"],
-                        id: user._id,
-                        configs: user.configs,
-                        roles: authorities,
-                      },
-                    });
-                  } catch (err) {
-                    res.status(500).send({ message: err });
-                  }
-                });
-              } catch (err) {
-                res.status(500).send({ message: err });
-              }
-            });
           });
         } else {
           //add default role student
@@ -74,26 +38,46 @@ exports.signup = async (req, res) => {
             if (err) {
               res.status(500).send({ message: `error: ${err}` });
             }
-
             user.roles = [role._id];
-            user.save((err) => {
-              if (err) {
-                res.status(500).send({ message: err });
-              }
-              res.status(200).send({
-                message: "User Registered successfully!",
-                user: {
-                  email: user.email,
-                  firstname: user["firstname"],
-                  lastname: user["lastname"],
-                  id: user._id,
-                  configs: user.configs,
-                  roles: authorities,
-                },
-              });
-            });
           });
         }
+        user.save((err) => {
+          try {
+            //send verification email with secret string
+            var secret = jwt.sign(
+              { is: user._id },
+              config.verification_secret,
+              {
+                expiresIn: 86400, //24 hours
+              }
+            );
+            // mailController.send_email(user.email, secret);
+            //add config
+            const configuration = Configuration();
+            configuration.save();
+            user.configs = [configuration._id];
+            user.save((err) => {
+              try {
+                print("here");
+                res.status(200).send({
+                  message: "User Registered successfully!",
+                  user: {
+                    email: user.email,
+                    firstname: user["firstname"],
+                    lastname: user["lastname"],
+                    id: user._id,
+                    configs: user.configs,
+                    roles: authorities,
+                  },
+                });
+              } catch (err) {
+                res.status(500).send({ message: err });
+              }
+            });
+          } catch (err) {
+            res.status(500).send({ message: err });
+          }
+        });
       }
     });
   } catch (err) {
